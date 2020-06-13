@@ -1,0 +1,140 @@
+import random
+import time
+
+def printHand(hand):
+  #"A" == 1
+  print("[",end="")
+  for card in hand:
+    if(card>=2 and card<=10):
+      print(str(card)+", ",end="")
+    if(card == 11):
+      print("J, ",end="")
+    if(card == 12):
+      print("Q, ",end="")
+    if(card == 13):
+      print("K, ",end="")
+    if(card == 1):
+      print("Ace, ",end="")
+  #.strip(" ")
+  #.strip(",")
+  print("]")
+
+
+
+def calcHand(hand):
+  total=0
+  numAce=0
+  for i in range(len(hand)):
+    if hand[i] <= 10 and hand[i] >= 2:
+      total += hand[i]
+    if hand[i] > 10:
+      total += 10
+    if hand[i]==1:
+      numAce+=1
+  
+  for j in range(numAce):
+    if(hand + 11 > 21):
+      total += 1
+    else:
+      total  += 11
+
+
+  return total
+
+
+
+input("Welcome to BlackJack")
+
+
+
+while(True):
+  print("*-*-*-*-*-*-*-*-*")
+  cards=[1,2,3,4,5,6,7,8,9,10,11,12,13]
+  #1-> A, 11-> J, 12-> Q 13->K
+  
+  playerHand=[] 
+  for i in range(2):
+    randomCard=random.randint(0,12)
+    playerHand.append(cards[random.randint(0,12)])
+  print(hand)
+  continueGame=True
+  user_input=input("Type H for hit or S to stay. ")
+  while(user_input=="H" or user_input=="h"):
+    playerHand.append(random.randint(1,13))
+    print(playerHand)
+    if(sum(playerHand)>21):
+       print("You lost. Bust.")
+       continueGame=False
+       break
+    if(sum(playerHand)==21):
+       print("You won! BlackJack!")
+       continueGame=False
+       break
+   
+    user_input=input("Type H for hit or S to stay. ")  
+    if user_input=="S":
+      print("Stay")
+      
+  if(continueGame==True):
+    print("Dealer's turn!")
+
+    #get 2 cards
+    #hit until his hand is >=17
+    #blackjack-> we lose
+    #bust-> we win
+    dealerHand=[]
+    for i in range(2):
+      randomCard=random.randint(0,12)
+      dealerHand.append(cards[random.randint(0,12)])
+    print(dealerHand)
+    while(sum(dealerHand)<17):
+      dealerHand.append(random.randint(1,13))
+      print(dealerHand)
+      if(sum(dealerHand)>21):
+        print("You Won! Dealer Busted.")
+        continueGame=False
+        break
+      if(sum(dealerHand)==21):
+        print("You lost. Dealer BlackJacked!")
+        continueGame=False
+        break
+    if(continueGame):
+      print("Dealer: "+str(sum(dealerHand)))
+      print("Player: "+str(sum(playerHand)))
+      if sum(dealerHand)>sum(playerHand):
+        print("You lost. Dealer had a greater hand.")
+      elif sum(dealerHand)==sum(playerHand):
+        print("Tie. Both players had the same value hand.")     
+      else:
+        print("You won! Player hand is greater than dealer hand.")
+    input("Press enter to play again")
+
+
+ #Slow down the Deal I can't tell what is happening. time.sleep(#) 
+ #if the user does not enter H or S allow them to re-input.
+ #while(user_input!='H' or us)
+ # userinput=input()
+ #add print
+
+
+#          if(playerHand<21):
+ # had ideas for this.       print("Do you want to keep going? Type H for hit or S to stay. ")
+ 
+  
+  
+  
+  #HW 4/18
+  #allow user to enter "H" for hit or "S" to stay
+  #when hit add a card and check for BlackJack or Bust 
+
+  #hand has 2 cards
+  #they will be between 2-11
+  #2 things
+  #hit-> add a card
+    #21-> win
+    #21> -> lose
+  #stay and continue the game
+
+  #dealer-> 2 cards between 2-11
+
+
